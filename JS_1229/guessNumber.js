@@ -1,25 +1,30 @@
 // Global variables
 let secretNumber = generateRandomNumber();
 
-// 4. Function to generate a random number between 1 and 10
+// Function to generate a random number between 1 and 10
 function generateRandomNumber() {
-  
+  return Math.floor((Math.random() * 10) + 1);
 }
 
 // Function to check the user's guess
 function checkGuess() {
-
-  // Local variable
-  let userGuess = document.getElementById("userGuess").value;
+  // Local variables
+  let userGuess = parseInt(document.getElementById("userGuess").value);
   let resultElement = document.getElementById("result");
 
-  // 5. Here should be an if-else statement.
+  if (userGuess === secretNumber) {
+    // If the answer is correct
+    resultElement.innerHTML='<h1>Congratulations! You guessed the correct number!</h1>';
+    showImageAndPlaySound("picture2.jpeg", "music2.mp3");
 
-  // If the answer is correct, then output "Congratulations! You guessed the correct number!" with picture2 and music2.
+    // Generate a new random number for the next round
+    secretNumber=generateRandowNumber();
 
-  // If the answer is wrong, then output "Sorry, try again!" with picture1 and music1.
-
-  // P.S. Generate a new random number for the next round after getting the correct answer.
+  } else {
+    // If the answer is wrong
+    resultElement.innerHTML = '<h1>Sorry, try again!</h1>';
+    showImageAndPlaySound("picture1.jpeg", "music1.mp3");   
+  }
 
   // Clear the input field for the next guess
   document.getElementById("userGuess").value = "";
@@ -35,7 +40,8 @@ function showImageAndPlaySound(imageSource, soundSource) {
   soundElement.autoplay = true;
 
   let resultContainer = document.getElementById("result");
-  resultContainer.innerHTML = "";
+
+  
   resultContainer.appendChild(imageElement);
-  resultContainer.appendChild(soundElement);
+  resultContainer.appendChild(soundElement)
 }
